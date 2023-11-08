@@ -34,7 +34,8 @@ export const signin = async(req, res, next) =>{
           }
 
           const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET);
-          res.cookie('acdessToken', token, {httpOnly: true, expires: new Date(Date.now() + 24 * 60 * 60 * 10)}).status(200).json("User logged in successfully");
+          const {password: hashedPassword, ...rest} = validUser._doc;
+          res.cookie('acdessToken', token, {httpOnly: true, expires: new Date(Date.now() + 24 * 60 * 60 * 10)}).status(200).json(rest);
   }
   catch(error){
     next(error);
