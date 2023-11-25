@@ -3,11 +3,13 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userRouter from './routes/user.route.js';
 import authRouter from './routes/auth.route.js';
+import cookieParser from 'cookie-parser';
 
 dotenv.config();
 
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
 mongoose.connect(process.env.MONGO_URL).then(() => console.log('MongoDB connected')).catch(err => console.log(err));
 // app.get('/wow', (req, res) => {res.send('Hello World');}); this is an test api
 
